@@ -19,6 +19,10 @@ class AsobanParser
         $this->filePath = $filePath;
     }
 
+    /**
+     * @return AsobanResult
+     * @throws Exception
+     */
     public function parse()
     {
         if (false === ($fh = fopen($this->filePath, 'rb')))
