@@ -1,0 +1,20 @@
+{
+    "name": "dnetix/asoban",
+    "version": "0.1.0",
+    "description": "AsoBancaria plain text report parser",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Diego Calle",
+            "email": "dnetix@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Dnetix\\Asoban\\": "src/"
+        }
+    }
+}
