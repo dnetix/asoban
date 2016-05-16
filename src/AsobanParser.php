@@ -5,6 +5,7 @@ namespace Dnetix\Asoban;
 
 
 use Dnetix\Asoban\Entities\AsobanResult;
+use Dnetix\Asoban\Parsers\Format1998;
 use Dnetix\Asoban\Parsers\Format2001;
 use Exception;
 
@@ -45,6 +46,10 @@ class AsobanParser
     {
         if($this->format == self::F_2001){
             return (new Format2001($this->filePath))->parse();
+        } else if ($this->format == self::F_1998){
+            return (new Format1998($this->filePath))->parse();
+        }else {
+            throw new Exception('No Asoban parser defined for the format provided');
         }
     }
     

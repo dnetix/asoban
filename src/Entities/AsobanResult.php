@@ -13,6 +13,7 @@ class AsobanResult
     protected $header;
     protected $records = [];
     protected $batchs = [];
+    protected $control;
 
     public function __construct()
     {
@@ -21,16 +22,25 @@ class AsobanResult
     public function addHeader(AsobanHeader $asobanHeader)
     {
         $this->header = $asobanHeader;
+        return $this;
     }
 
     public function addRecord(AsobanRecord $record)
     {
         $this->records[] = $record;
+        return $this;
     }
     
     public function addBatch(AsobanBatch $batch)
     {
         $this->batchs[] = $batch;
+        return $this;
+    }
+
+    public function addControl($control)
+    {
+        $this->control = $control;
+        return $this;
     }
 
     /**
@@ -48,6 +58,14 @@ class AsobanResult
     public function header()
     {
         return $this->header;
+    }
+
+    /**
+     * @return AsobanControl
+     */
+    public function control()
+    {
+        return $this->control;
     }
 
 }
