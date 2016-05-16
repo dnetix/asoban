@@ -12,6 +12,7 @@ class AsobanResult
      */
     protected $header;
     protected $records = [];
+    protected $batchs = [];
 
     public function __construct()
     {
@@ -25,6 +26,11 @@ class AsobanResult
     public function addRecord(AsobanRecord $record)
     {
         $this->records[] = $record;
+    }
+    
+    public function addBatch(AsobanBatch $batch)
+    {
+        $this->batchs[] = $batch;
     }
 
     /**
