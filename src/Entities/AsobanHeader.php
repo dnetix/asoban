@@ -2,6 +2,7 @@
 
 
 namespace Dnetix\Asoban\Entities;
+use DateTime;
 
 
 /**
@@ -66,13 +67,21 @@ class AsobanHeader
     }
 
     /**
-     * Returns the time with a format HHMM representing the time when
+     * Returns the time with a format HH:MM representing the time when
      * the file was created
      * @return string
      */
     public function fileTime()
     {
-        return $this->get('fileTime');
+        return substr_replace($this->get('fileTime'), ':', 2, 0);
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function fileDateTime()
+    {
+        return new DateTime($this->fileDate() . ' ' . $this->fileTime());
     }
 
     public function fileModifier()
