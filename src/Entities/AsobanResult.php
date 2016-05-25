@@ -68,4 +68,13 @@ class AsobanResult
         return $this->control;
     }
 
+    /**
+     * Returns the number of records for this result
+     * @return int
+     */
+    public function recordCount()
+    {
+        return sizeof($this->getRecords());
+    }
+
 }
