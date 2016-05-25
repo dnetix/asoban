@@ -117,7 +117,7 @@ abstract class GenericParser
 
             if (empty($info)) continue;
 
-            if (strlen($info) != $this->lineLength())
+            if (strlen($info) < $this->lineLength())
                 throw new Exception('Line ' . $rows . ' has invalid length. ' . strlen($info) . ' expected: ' . $this->lineLength());
 
             $recordType = $this->recordType($info);
@@ -170,6 +170,7 @@ abstract class GenericParser
                         throw new Exception(sprintf("El archivo en la línea %d tiene un registro de fin de lote sin un registro previo de control, lo cual denota una mala estructura\n%s", $rows, $info), 1003);
 
                     $control = $this->parseControl($info);
+                    $result->addControl($control);
                     
                     $this->hasProcessedHeader = false;
                     break;
