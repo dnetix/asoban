@@ -15,10 +15,6 @@ class AsobanResult
     protected $batchs = [];
     protected $control;
 
-    public function __construct()
-    {
-    }
-
     public function addHeader(AsobanHeader $asobanHeader)
     {
         $this->header = $asobanHeader;
@@ -45,7 +41,7 @@ class AsobanResult
 
     /**
      * Returns all the records parsed
-     * @return array
+     * @return AsobanRecord[]
      */
     public function getRecords()
     {
