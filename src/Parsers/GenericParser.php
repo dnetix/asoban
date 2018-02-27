@@ -2,6 +2,7 @@
 
 
 namespace Dnetix\Asoban\Parsers;
+
 use Dnetix\Asoban\Entities\AsobanBatch;
 use Dnetix\Asoban\Entities\AsobanControl;
 use Dnetix\Asoban\Entities\AsobanEndBatch;
@@ -16,10 +17,10 @@ use Exception;
  */
 abstract class GenericParser
 {
-    
+
     protected $fileDescriptor;
     protected $filePath;
-    
+
     private $hasProcessedHeader = false;
     private $hasProcessedBatch = false;
     private $currentBatch = null;
@@ -37,17 +38,17 @@ abstract class GenericParser
     private function getFileDescriptor()
     {
         $filePath = $this->filePath();
-        
-        if (!file_exists($this->filePath())){
+
+        if (!file_exists($this->filePath())) {
             throw new Exception('File not exists to open the file [' . $filePath . ']');
         }
-        
+
         $this->fileDescriptor = fopen($filePath, 'rb');
-        
-        if ($this->fileDescriptor === false){
+
+        if ($this->fileDescriptor === false) {
             throw new Exception('Failed to open the file [' . $filePath . ']');
         }
-        
+
         return $this->fileDescriptor;
     }
 
@@ -60,13 +61,19 @@ abstract class GenericParser
     {
         return fgets($this->fileDescriptor, 4096);
     }
-    
+
     public abstract function lineLength();
+
     public abstract function recordType($line);
+
     public abstract function headerCode();
+
     public abstract function batchCode();
+
     public abstract function detailCode();
+
     public abstract function endBatchCode();
+
     public abstract function controlCode();
 
     /**
@@ -98,7 +105,7 @@ abstract class GenericParser
      * @return AsobanControl
      */
     public abstract function parseControl($row);
-    
+
 
     /**
      * @return AsobanResult
@@ -112,7 +119,7 @@ abstract class GenericParser
 
         $rows = 0;
 
-        while(false !== ($info = $this->getNextLine())) {
+        while (false !== ($info = $this->getNextLine())) {
             $rows++;
 
             if (empty($info)) continue;
@@ -122,7 +129,7 @@ abstract class GenericParser
 
             $recordType = $this->recordType($info);
 
-            switch($recordType) {
+            switch ($recordType) {
                 case $this->headerCode():
                     if ($this->hasProcessedHeader)
                         throw new Exception('The file [' . $this->filePath() . '] has more than one header');
@@ -139,7 +146,7 @@ abstract class GenericParser
                         throw new Exception(sprintf("El archivo en la línea %d tiene más de un registro de lote anidado, lo cual denota una mala estructura\n%s", $rows, $info), 1003);
 
                     $batch = $this->parseBatch($info);
-                    
+
                     $this->hasProcessedBatch = true;
                     $this->currentBatch = $batch->batchCode();
                     break;
@@ -155,9 +162,9 @@ abstract class GenericParser
                 case $this->endBatchCode():
                     if (!$this->hasProcessedBatch)
                         throw new Exception(sprintf("El archivo en la línea %d tiene un registro de fin de lote sin un registro previo de lote, lo cual denota una mala estructura\n%s", $rows, $info), 1003);
-                    
+
                     $batch = $this->parseEndBatch($info);
-                    
+
                     if ($this->currentBatch != $batch->batchCode())
                         throw new Exception(sprintf("El archivo en la línea %d tiene un registro de fin de lote que no corresponde al lote abierto, lo cual denota una mala estructura\n%s", $rows, $info), 1003);
 
@@ -171,12 +178,12 @@ abstract class GenericParser
 
                     $control = $this->parseControl($info);
                     $result->addControl($control);
-                    
+
                     $this->hasProcessedHeader = false;
                     break;
             }
         }
-        
+
         $this->closeFile();
 
         return $result;

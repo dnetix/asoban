@@ -2,6 +2,7 @@
 
 
 namespace Dnetix\Asoban\Entities;
+
 use DateTime;
 
 
@@ -100,5 +101,5 @@ class AsobanHeader
     {
         return $this->get('accountType');
     }
-    
+
 }

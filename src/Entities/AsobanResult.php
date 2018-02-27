@@ -26,7 +26,7 @@ class AsobanResult
         $this->records[] = $record;
         return $this;
     }
-    
+
     public function addBatch(AsobanBatch $batch)
     {
         $this->batchs[] = $batch;

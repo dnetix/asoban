@@ -37,12 +37,12 @@ class Format1998 extends GenericParser
     {
         return '02';
     }
-    
+
     public function endBatchCode()
     {
         return null;
     }
-    
+
     public function controlCode()
     {
         return '09';
