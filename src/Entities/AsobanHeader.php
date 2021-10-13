@@ -1,105 +1,73 @@
 <?php
 
-
 namespace Dnetix\Asoban\Entities;
-
-use DateTime;
-
 
 /**
  * Class AsobanHeader
- * Contains the plain text report header's information
+ * Contains the plain text report header's information.
  */
-class AsobanHeader
+class AsobanHeader extends BaseEntity
 {
-    protected $data;
+    public const AC_SAVINGS = 1;
+    public const AC_CHECKING = 2;
+    public const AC_CARD = 3;
 
-    public function __construct($data)
-    {
-        $this->data = $data;
-    }
-
-    private function get($key)
-    {
-        return isset($this->data[$key]) ? $this->data[$key] : null;
-    }
-
-    /**
-     * @return string
-     */
-    public function nit()
+    public function nit(): ?string
     {
         return $this->get('nit');
     }
 
     /**
-     * Returns a Y-m-d
-     * @return string
+     * Returns a Ymd.
      */
-    public function date()
+    public function date(): ?string
     {
         return $this->get('date');
     }
 
     /**
-     * Codigo Entidad Recaudadora
-     * @return string
+     * Codigo Entidad Recaudadora.
      */
-    public function bankCode()
+    public function bankCode(): ?string
     {
         return $this->get('bankCode');
     }
 
-    /**
-     * @return string
-     */
-    public function accountNumber()
+    public function accountNumber(): ?string
     {
         return $this->get('accountNumber');
     }
 
     /**
-     * Returns a Y-m-d with the date when the file was created
-     * @return string
+     * Returns a Ymd with the date when the file was created.
      */
-    public function fileDate()
+    public function fileDate(): ?string
     {
         return $this->get('fileDate');
     }
 
     /**
-     * Returns the time with a format HH:MM representing the time when
-     * the file was created
-     * @return string
+     * Returns the time with a format HHMM representing the time when
+     * the file was created.
      */
-    public function fileTime()
+    public function fileTime(): ?string
     {
-        return substr_replace($this->get('fileTime'), ':', 2, 0);
+        return $this->get('fileTime');
     }
 
-    /**
-     * @return DateTime
-     */
-    public function fileDateTime()
-    {
-        return new DateTime($this->fileDate() . ' ' . $this->fileTime());
-    }
-
-    public function fileModifier()
+    public function fileModifier(): ?string
     {
         return $this->get('fileModifier');
     }
 
     /**
      * Returns
-     *  1: Savings Account
-     *  2: Checking Account
-     *  3: Credit Card
-     * @return int
+     *  01: Savings Account
+     *  02: Checking Account
+     *  03: Credit Card.
      */
-    public function accountType()
+    public function accountType(): ?string
     {
         return $this->get('accountType');
     }
-
 }

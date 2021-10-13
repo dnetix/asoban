@@ -1,8 +1,11 @@
 <?php
 
-class BaseTestCase extends PHPUnit_Framework_TestCase
-{
+namespace Tests;
 
+use PHPUnit\Framework\TestCase;
+
+class BaseTestCase extends TestCase
+{
     public function generateFile()
     {
         $rows = [
@@ -16,13 +19,13 @@ class BaseTestCase extends PHPUnit_Framework_TestCase
                 ['0800', 4],
                 ['Z', 1],
                 ['1', 2],
-                ['', 106, ' ']
+                ['', 106, ' '],
             ],
             [
                 ['05', 2],
                 ['123456', 13],
                 ['1', 4],
-                ['', 142, ' ']
+                ['', 142, ' '],
             ],
             [
                 ['06', 2],
@@ -36,22 +39,34 @@ class BaseTestCase extends PHPUnit_Framework_TestCase
                 ['1234', 4],
                 ['2000000', 7],
                 ['', 3, ' '],
-                ['', 65, ' ']
-            ]
+                ['', 65, ' '],
+            ],
+            [
+                ['08', 2],
+                [1, 9],
+                [1000200, 18],
+                [1, 4],
+                ['', 129, ' '],
+            ],
+            [
+                ['09', 2],
+                [1, 9],
+                [1000200, 18],
+                ['', 133, ' '],
+            ],
         ];
 
         $file = [];
 
-        foreach ($rows as $row){
-            $x = "";
-            foreach ($row as $item){
-                $x .= str_pad($item[0], $item[1], isset($item[2]) ? $item[2] : 0, STR_PAD_LEFT);
+        foreach ($rows as $row) {
+            $x = '';
+            foreach ($row as $item) {
+                $x .= str_pad($item[0], $item[1], $item[2] ?? 0, STR_PAD_LEFT);
             }
             $file[] = $x;
         }
-        
+
         file_put_contents(__DIR__ . '/files/mocked-correct-file', implode("\n", $file));
         return __DIR__ . '/files/mocked-correct-file';
     }
-
 }
