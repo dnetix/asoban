@@ -17,6 +17,8 @@ class Format2001Test extends BaseTestCase
         $this->assertEquals('0000012345', $asoban->header()->nit());
         $this->assertEquals('00849514521', $asoban->header()->accountNumber());
         $this->assertEquals('01', $asoban->header()->accountType());
+        $this->assertEquals(1, $asoban->control()->records());
+        $this->assertEquals(10002, $asoban->control()->amount());
     }
 
     public function testItThrowsExceptionWhenFileDoesntExists()
