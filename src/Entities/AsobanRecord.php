@@ -5,90 +5,90 @@ namespace Dnetix\Asoban\Entities;
 class AsobanRecord extends BaseEntity
 {
     /**
-     * PAGO A TRAVÉS DE BANCOS
+     * PAGO A TRAVÉS DE BANCOS.
      */
-    const SOURCE_BANK = '01';
+    public const SOURCE_BANK = '01';
     /**
-     * PAGO A TRAVÉS DE CORPORACIÓN DE AHORRO Y VIVIENDA
+     * PAGO A TRAVÉS DE CORPORACIÓN DE AHORRO Y VIVIENDA.
      */
-    const SOURCE_SAVINGS = '02';
+    public const SOURCE_SAVINGS = '02';
     /**
-     * PAGO A TRAVÉS DE ACH COLOMBIA
+     * PAGO A TRAVÉS DE ACH COLOMBIA.
      */
-    const SOURCE_ACH = '03';
+    public const SOURCE_ACH = '03';
     /**
-     * PAGO A TRAVÉS DE ASCREDIBANCO
+     * PAGO A TRAVÉS DE ASCREDIBANCO.
      */
-    const SOURCE_CREDIBANCO = '04';
+    public const SOURCE_CREDIBANCO = '04';
     /**
-     * PAGO A TRAVÉS DE ATH
+     * PAGO A TRAVÉS DE ATH.
      */
-    const SOURCE_ATH = '05';
+    public const SOURCE_ATH = '05';
     /**
-     * PAGO A TRAVES DE CENIT
+     * PAGO A TRAVES DE CENIT.
      */
-    const SOURCE_CENIT = '06';
+    public const SOURCE_CENIT = '06';
     /**
-     * PAGO A TRAVÉS DE RED MULTICOLOR
+     * PAGO A TRAVÉS DE RED MULTICOLOR.
      */
-    const SOURCE_RBM = '07';
+    public const SOURCE_RBM = '07';
     /**
-     * PAGO A TRAVÉS DE SERVIBANCA
+     * PAGO A TRAVÉS DE SERVIBANCA.
      */
-    const SOURCE_SERVIBANCA = '08';
+    public const SOURCE_SERVIBANCA = '08';
 
     /**
-     * POR VENTANILLA EN EFECTIVO
+     * POR VENTANILLA EN EFECTIVO.
      */
-    const PM_CASH = '1';
+    public const PM_CASH = '1';
     /**
-     * POR VENTANILLA EN CHEQUE
+     * POR VENTANILLA EN CHEQUE.
      */
-    const PM_CHECK = '2';
+    public const PM_CHECK = '2';
     /**
-     * POR BUZON DE AUTOSERVICIO
+     * POR BUZON DE AUTOSERVICIO.
      */
-    const PM_AUTOSERVICE = '3';
+    public const PM_AUTOSERVICE = '3';
     /**
-     * DÉBITO EN CUENTA POR SISTEMA DE AUDIORESPUESTA
+     * DÉBITO EN CUENTA POR SISTEMA DE AUDIORESPUESTA.
      */
-    const PM_IVR = '11';
+    public const PM_IVR = '11';
     /**
-     * DEBITO EN CUENTA POR CAJERO ELECTRÓNICO
+     * DEBITO EN CUENTA POR CAJERO ELECTRÓNICO.
      */
-    const PM_ATM = '12';
+    public const PM_ATM = '12';
     /**
-     * DEBITO EN CUENTA POR DATÁFONO
+     * DEBITO EN CUENTA POR DATÁFONO.
      */
-    const PM_DATAPHONE = '13';
+    public const PM_DATAPHONE = '13';
     /**
-     * DÉBITO EN CUENTA POR DOMICILIACIÓN
+     * DÉBITO EN CUENTA POR DOMICILIACIÓN.
      */
-    const PM_PPD = '14';
+    public const PM_PPD = '14';
     /**
-     * DÉBITO EN CUENTA POR INTERNET
+     * DÉBITO EN CUENTA POR INTERNET.
      */
-    const PM_INTERNET_DEBIT = '15';
+    public const PM_INTERNET_DEBIT = '15';
     /**
-     * TARJETA CRÉDITO POR SISTEMA DE AUDIORESPUESTA
+     * TARJETA CRÉDITO POR SISTEMA DE AUDIORESPUESTA.
      */
-    const PM_CARD_IVR = '21';
+    public const PM_CARD_IVR = '21';
     /**
-     * TARJETA CRÉDITO POR CAJERO ELECTRÓNICO
+     * TARJETA CRÉDITO POR CAJERO ELECTRÓNICO.
      */
-    const PM_CARD_ATM = '22';
+    public const PM_CARD_ATM = '22';
     /**
-     * TARJETA CRÉDITO POR DATÁFONO
+     * TARJETA CRÉDITO POR DATÁFONO.
      */
-    const PM_CARD_DATAPHONE = '23';
+    public const PM_CARD_DATAPHONE = '23';
     /**
-     * TARJETA CRÉDITO POR DOMICILIACIÓN
+     * TARJETA CRÉDITO POR DOMICILIACIÓN.
      */
-    const PM_CARD_TOKEN = '24';
+    public const PM_CARD_TOKEN = '24';
     /**
-     * TARJETA CRÉDITO POR INTERNET
+     * TARJETA CRÉDITO POR INTERNET.
      */
-    const PM_CARD_INTERNET = '25';
+    public const PM_CARD_INTERNET = '25';
 
     public function reference(): ?string
     {
@@ -138,5 +138,11 @@ class AsobanRecord extends BaseEntity
     public function refundReason(): ?string
     {
         return $this->get('refundReason');
+    }
+
+    public function setSequence(string $sequence): self
+    {
+        $this->data['sequence'] = $sequence;
+        return $this;
     }
 }

@@ -4,69 +4,61 @@ namespace Dnetix\Asoban\Entities;
 
 class AsobanHandler
 {
+    protected ?AsobanHeader $header = null;
     /**
-     * @var AsobanHeader
+     * @var AsobanBatch[] $batchs
      */
-    protected $header;
-    protected $records = [];
-    protected $batchs = [];
-    protected $control;
+    protected array $batchs = [];
+    protected ?AsobanControl $control = null;
 
-    public function addHeader(AsobanHeader $asobanHeader)
+    protected int $count = 0;
+
+    public function addHeader($header): AsobanHeader
     {
-        $this->header = $asobanHeader;
-        return $this;
+        if (is_array($header)) {
+            $header = new AsobanHeader($header);
+        }
+        $this->header = $header;
+        return $this->header;
     }
 
-    public function addRecord(AsobanRecord $record)
+    public function addBatch($batch): AsobanBatch
     {
-        $this->records[] = $record;
-        return $this;
-    }
+        $this->count++;
 
-    public function addBatch(AsobanBatch $batch)
-    {
+        if (is_array($batch)) {
+            if ($batch['batchCode'] ?? false) {
+                $this->count = (int)$batch['batchCode'];
+            } else {
+                $batch['batchCode'] = $this->count;
+            }
+            $batch = new AsobanBatch($batch);
+        }
         $this->batchs[] = $batch;
-        return $this;
+        return $batch;
     }
 
-    public function addControl($control)
+    public function addControl(AsobanControl $control)
     {
         $this->control = $control;
         return $this;
     }
 
-    /**
-     * Returns all the records parsed.
-     * @return AsobanRecord[]
-     */
-    public function getRecords()
-    {
-        return $this->records;
-    }
-
-    /**
-     * @return AsobanHeader
-     */
-    public function header()
+    public function header(): ?AsobanHeader
     {
         return $this->header;
     }
 
     /**
-     * @return AsobanControl
+     * @return AsobanBatch[]
      */
-    public function control()
+    public function batchs(): array
     {
-        return $this->control;
+        return $this->batchs;
     }
 
-    /**
-     * Returns the number of records for this result.
-     * @return int
-     */
-    public function recordCount()
+    public function control(): ?AsobanControl
     {
-        return count($this->getRecords());
+        return $this->control;
     }
 }

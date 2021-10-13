@@ -2,18 +2,15 @@
 
 namespace Dnetix\Asoban\Entities;
 
-use Cassandra\Date;
-use DateTime;
-
 /**
  * Class AsobanHeader
  * Contains the plain text report header's information.
  */
 class AsobanHeader extends BaseEntity
 {
-    const AC_SAVINGS = 1;
-    const AC_CHECKING = 2;
-    const AC_CARD = 3;
+    public const AC_SAVINGS = 1;
+    public const AC_CHECKING = 2;
+    public const AC_CARD = 3;
 
     public function nit(): ?string
     {
@@ -21,7 +18,7 @@ class AsobanHeader extends BaseEntity
     }
 
     /**
-     * Returns a Y-m-d.
+     * Returns a Ymd.
      */
     public function date(): ?string
     {
@@ -42,7 +39,7 @@ class AsobanHeader extends BaseEntity
     }
 
     /**
-     * Returns a Y-m-d with the date when the file was created.
+     * Returns a Ymd with the date when the file was created.
      */
     public function fileDate(): ?string
     {
@@ -50,20 +47,12 @@ class AsobanHeader extends BaseEntity
     }
 
     /**
-     * Returns the time with a format HH:MM representing the time when
+     * Returns the time with a format HHMM representing the time when
      * the file was created.
      */
     public function fileTime(): ?string
     {
-        return substr_replace($this->get('fileTime'), ':', 2, 0);
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function fileDateTime(): DateTime
-    {
-        return new DateTime($this->fileDate() . ' ' . $this->fileTime());
+        return $this->get('fileTime');
     }
 
     public function fileModifier(): ?string
@@ -73,9 +62,9 @@ class AsobanHeader extends BaseEntity
 
     /**
      * Returns
-     *  1: Savings Account
-     *  2: Checking Account
-     *  3: Credit Card.
+     *  01: Savings Account
+     *  02: Checking Account
+     *  03: Credit Card.
      */
     public function accountType(): ?string
     {
