@@ -7,7 +7,7 @@ use Dnetix\Asoban\Entities\AsobanControl;
 use Dnetix\Asoban\Entities\AsobanEndBatch;
 use Dnetix\Asoban\Entities\AsobanHeader;
 use Dnetix\Asoban\Entities\AsobanRecord;
-use Dnetix\Asoban\Entities\AsobanResult;
+use Dnetix\Asoban\Entities\AsobanHandler;
 use Dnetix\Asoban\Exceptions\AsobanException;
 use Exception;
 
@@ -106,14 +106,14 @@ abstract class GenericParser
     abstract public function parseControl($row);
 
     /**
-     * @return AsobanResult
+     * @return AsobanHandler
      * @throws Exception
      */
     public function parse()
     {
         $this->getFileDescriptor();
 
-        $result = new AsobanResult();
+        $result = new AsobanHandler();
 
         $rows = 0;
 

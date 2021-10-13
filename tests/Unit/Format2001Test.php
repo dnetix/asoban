@@ -8,7 +8,7 @@ use Tests\BaseTestCase;
 
 class Format2001Test extends BaseTestCase
 {
-    public function testItWorks()
+    public function testItParsesABasic2001File()
     {
         $file = $this->generateFile();
 

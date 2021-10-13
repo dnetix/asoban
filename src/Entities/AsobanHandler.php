@@ -2,7 +2,7 @@
 
 namespace Dnetix\Asoban\Entities;
 
-class AsobanResult
+class AsobanHandler
 {
     /**
      * @var AsobanHeader
