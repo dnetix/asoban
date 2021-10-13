@@ -55,7 +55,7 @@ class Format2001 extends GenericParser
             'nit' => substr($row, 2, 10),
             'date' => date('Y-m-d', strtotime(substr($row, 12, 8))),
             'bankCode' => substr($row, 20, 3),
-            'accountNumber' => ltrim(substr($row, 23, 17), '0'),
+            'accountNumber' => ltrim(substr($row, 23, 17)),
             'fileDate' => date('Y-m-d', strtotime(substr($row, 40, 8))),
             'fileTime' => substr($row, 48, 4),
             'fileModifier' => substr($row, 52, 1),

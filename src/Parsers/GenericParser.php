@@ -8,6 +8,7 @@ use Dnetix\Asoban\Entities\AsobanEndBatch;
 use Dnetix\Asoban\Entities\AsobanHeader;
 use Dnetix\Asoban\Entities\AsobanRecord;
 use Dnetix\Asoban\Entities\AsobanResult;
+use Dnetix\Asoban\Exceptions\AsobanException;
 use Exception;
 
 /**
@@ -38,13 +39,13 @@ abstract class GenericParser
         $filePath = $this->filePath();
 
         if (!file_exists($this->filePath())) {
-            throw new Exception('File not exists to open the file [' . $filePath . ']');
+            throw AsobanException::forFileNotFound($filePath);
         }
 
         $this->fileDescriptor = fopen($filePath, 'rb');
 
         if ($this->fileDescriptor === false) {
-            throw new Exception('Failed to open the file [' . $filePath . ']');
+            throw AsobanException::forFileCannotBeRead($filePath);
         }
 
         return $this->fileDescriptor;

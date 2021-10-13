@@ -3,6 +3,7 @@
 namespace Dnetix\Asoban;
 
 use Dnetix\Asoban\Entities\AsobanResult;
+use Dnetix\Asoban\Exceptions\AsobanException;
 use Dnetix\Asoban\Parsers\Format1998;
 use Dnetix\Asoban\Parsers\Format2001;
 use Exception;
@@ -17,21 +18,21 @@ class AsobanParser
         self::F_1998 => 'Asobancaria 1998',
     ];
 
-    private $filePath;
+    private string $filePath;
     /**
      * @var string
      */
-    private $format;
+    private string $format;
 
-    public function __construct($filePath, $format = '2001')
+    public function __construct(string $filePath, string $format = '2001')
     {
         $this->filePath = $filePath;
         $this->format = $format;
     }
 
-    public static function load($filePath)
+    public static function load(string $filePath, string $format = '2001')
     {
-        return new self($filePath);
+        return new self($filePath, $format);
     }
 
     /**
@@ -45,7 +46,7 @@ class AsobanParser
         } elseif ($this->format == self::F_1998) {
             return (new Format1998($this->filePath))->parse();
         } else {
-            throw new Exception('No Asoban parser defined for the format provided');
+            throw AsobanException::forInvalidFileFormat($this->format);
         }
     }
 }
