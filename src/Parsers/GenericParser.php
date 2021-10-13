@@ -5,9 +5,9 @@ namespace Dnetix\Asoban\Parsers;
 use Dnetix\Asoban\Entities\AsobanBatch;
 use Dnetix\Asoban\Entities\AsobanControl;
 use Dnetix\Asoban\Entities\AsobanEndBatch;
+use Dnetix\Asoban\Entities\AsobanHandler;
 use Dnetix\Asoban\Entities\AsobanHeader;
 use Dnetix\Asoban\Entities\AsobanRecord;
-use Dnetix\Asoban\Entities\AsobanHandler;
 use Dnetix\Asoban\Exceptions\AsobanException;
 use Exception;
 
@@ -22,7 +22,7 @@ abstract class GenericParser
 
     private $hasProcessedHeader = false;
     private $hasProcessedBatch = false;
-    private $currentBatch = null;
+    private ?AsobanBatch $currentBatch = null;
 
     public function __construct($filePath)
     {
@@ -150,9 +150,10 @@ abstract class GenericParser
                     }
 
                     $batch = $this->parseBatch($info);
+                    $result->addBatch($batch);
 
                     $this->hasProcessedBatch = true;
-                    $this->currentBatch = $batch->batchCode();
+                    $this->currentBatch = $batch;
                     break;
 
                 case $this->detailCode():
@@ -160,7 +161,7 @@ abstract class GenericParser
                         throw new Exception(sprintf("El archivo en la línea %d tiene un registro de datos sin un registro previo de lote, lo cual denota una mala estructura\n%s", $rows, $info), 1003);
                     }
 
-                    $result->addRecord($this->parseDetail($info));
+                    $this->currentBatch->addRow($this->parseDetail($info));
 
                     break;
 
@@ -171,7 +172,7 @@ abstract class GenericParser
 
                     $batch = $this->parseEndBatch($info);
 
-                    if ($this->currentBatch != $batch->batchCode()) {
+                    if ($this->currentBatch->batchCode() != $batch->batchCode()) {
                         throw new Exception(sprintf("El archivo en la línea %d tiene un registro de fin de lote que no corresponde al lote abierto, lo cual denota una mala estructura\n%s", $rows, $info), 1003);
                     }
 
@@ -195,5 +196,14 @@ abstract class GenericParser
         $this->closeFile();
 
         return $result;
+    }
+
+    public static function arrayDescriptorAsString(array $row): string
+    {
+        $line = '';
+        foreach ($row as $item) {
+            $line .= str_pad($item[0], $item[1], $item[2] ?? 0, STR_PAD_LEFT);
+        }
+        return $line;
     }
 }
