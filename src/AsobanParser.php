@@ -2,7 +2,7 @@
 
 namespace Dnetix\Asoban;
 
-use Dnetix\Asoban\Entities\AsobanResult;
+use Dnetix\Asoban\Entities\AsobanHandler;
 use Dnetix\Asoban\Exceptions\AsobanException;
 use Dnetix\Asoban\Parsers\Format1998;
 use Dnetix\Asoban\Parsers\Format2001;
@@ -36,7 +36,7 @@ class AsobanParser
     }
 
     /**
-     * @return AsobanResult
+     * @return AsobanHandler
      * @throws Exception
      */
     public function parse()
