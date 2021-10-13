@@ -1,14 +1,12 @@
 <?php
 
-
 namespace Dnetix\Asoban\Entities;
 
 use DateTime;
 
-
 /**
  * Class AsobanHeader
- * Contains the plain text report header's information
+ * Contains the plain text report header's information.
  */
 class AsobanHeader
 {
@@ -33,7 +31,7 @@ class AsobanHeader
     }
 
     /**
-     * Returns a Y-m-d
+     * Returns a Y-m-d.
      * @return string
      */
     public function date()
@@ -42,7 +40,7 @@ class AsobanHeader
     }
 
     /**
-     * Codigo Entidad Recaudadora
+     * Codigo Entidad Recaudadora.
      * @return string
      */
     public function bankCode()
@@ -59,7 +57,7 @@ class AsobanHeader
     }
 
     /**
-     * Returns a Y-m-d with the date when the file was created
+     * Returns a Y-m-d with the date when the file was created.
      * @return string
      */
     public function fileDate()
@@ -69,7 +67,7 @@ class AsobanHeader
 
     /**
      * Returns the time with a format HH:MM representing the time when
-     * the file was created
+     * the file was created.
      * @return string
      */
     public function fileTime()
@@ -94,12 +92,11 @@ class AsobanHeader
      * Returns
      *  1: Savings Account
      *  2: Checking Account
-     *  3: Credit Card
+     *  3: Credit Card.
      * @return int
      */
     public function accountType()
     {
         return $this->get('accountType');
     }
-
 }

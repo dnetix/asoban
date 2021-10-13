@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Dnetix\Asoban\Parsers;
-
 
 use Dnetix\Asoban\Entities\AsobanBatch;
 use Dnetix\Asoban\Entities\AsobanControl;
@@ -12,7 +10,6 @@ use Dnetix\Asoban\Entities\AsobanRecord;
 
 class Format2001 extends GenericParser
 {
-
     public function lineLength()
     {
         return 162;

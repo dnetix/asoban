@@ -1,12 +1,9 @@
 <?php
 
-
 namespace Dnetix\Asoban\Entities;
-
 
 class AsobanEndBatch
 {
-
     private $data;
 
     public function __construct($data)
@@ -33,5 +30,4 @@ class AsobanEndBatch
     {
         return $this->get('amount');
     }
-
 }

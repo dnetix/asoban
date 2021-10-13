@@ -1,12 +1,9 @@
 <?php
 
-
 namespace Dnetix\Asoban\Entities;
-
 
 class AsobanRecord
 {
-
     protected $data;
 
     public function __construct($data)
@@ -68,5 +65,4 @@ class AsobanRecord
     {
         return $this->get('refundReason');
     }
-
 }

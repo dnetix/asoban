@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Dnetix\Asoban\Parsers;
 
 use Dnetix\Asoban\Entities\AsobanBatch;
@@ -13,11 +12,10 @@ use Exception;
 
 /**
  * Class GenericParser
- * Handles the process
+ * Handles the process.
  */
 abstract class GenericParser
 {
-
     protected $fileDescriptor;
     protected $filePath;
 
@@ -62,50 +60,49 @@ abstract class GenericParser
         return fgets($this->fileDescriptor, 4096);
     }
 
-    public abstract function lineLength();
+    abstract public function lineLength();
 
-    public abstract function recordType($line);
+    abstract public function recordType($line);
 
-    public abstract function headerCode();
+    abstract public function headerCode();
 
-    public abstract function batchCode();
+    abstract public function batchCode();
 
-    public abstract function detailCode();
+    abstract public function detailCode();
 
-    public abstract function endBatchCode();
+    abstract public function endBatchCode();
 
-    public abstract function controlCode();
+    abstract public function controlCode();
 
     /**
      * @param $row
      * @return AsobanHeader
      */
-    public abstract function parseHeader($row);
+    abstract public function parseHeader($row);
 
     /**
      * @param $row
      * @return AsobanBatch
      */
-    public abstract function parseBatch($row);
+    abstract public function parseBatch($row);
 
     /**
      * @param $row
      * @return AsobanRecord
      */
-    public abstract function parseDetail($row);
+    abstract public function parseDetail($row);
 
     /**
      * @param $row
      * @return AsobanEndBatch
      */
-    public abstract function parseEndBatch($row);
+    abstract public function parseEndBatch($row);
 
     /**
      * @param $row
      * @return AsobanControl
      */
-    public abstract function parseControl($row);
-
+    abstract public function parseControl($row);
 
     /**
      * @return AsobanResult
@@ -122,17 +119,21 @@ abstract class GenericParser
         while (false !== ($info = $this->getNextLine())) {
             $rows++;
 
-            if (empty($info)) continue;
+            if (empty($info)) {
+                continue;
+            }
 
-            if (strlen($info) < $this->lineLength())
+            if (strlen($info) < $this->lineLength()) {
                 throw new Exception('Line ' . $rows . ' has invalid length. ' . strlen($info) . ' expected: ' . $this->lineLength());
+            }
 
             $recordType = $this->recordType($info);
 
             switch ($recordType) {
                 case $this->headerCode():
-                    if ($this->hasProcessedHeader)
+                    if ($this->hasProcessedHeader) {
                         throw new Exception('The file [' . $this->filePath() . '] has more than one header');
+                    }
 
                     $result->addHeader($this->parseHeader($info));
 
@@ -140,10 +141,12 @@ abstract class GenericParser
                     break;
 
                 case $this->batchCode():
-                    if (!$this->hasProcessedHeader)
+                    if (!$this->hasProcessedHeader) {
                         throw new Exception(sprintf("El archivo en la línea %d tiene un registro de lote sin un registro previo de control, lo cual denota una mala estructura\n%s", $rows, $info), 1003);
-                    if ($this->hasProcessedBatch)
+                    }
+                    if ($this->hasProcessedBatch) {
                         throw new Exception(sprintf("El archivo en la línea %d tiene más de un registro de lote anidado, lo cual denota una mala estructura\n%s", $rows, $info), 1003);
+                    }
 
                     $batch = $this->parseBatch($info);
 
@@ -152,29 +155,33 @@ abstract class GenericParser
                     break;
 
                 case $this->detailCode():
-                    if (!$this->hasProcessedBatch)
+                    if (!$this->hasProcessedBatch) {
                         throw new Exception(sprintf("El archivo en la línea %d tiene un registro de datos sin un registro previo de lote, lo cual denota una mala estructura\n%s", $rows, $info), 1003);
+                    }
 
                     $result->addRecord($this->parseDetail($info));
 
                     break;
 
                 case $this->endBatchCode():
-                    if (!$this->hasProcessedBatch)
+                    if (!$this->hasProcessedBatch) {
                         throw new Exception(sprintf("El archivo en la línea %d tiene un registro de fin de lote sin un registro previo de lote, lo cual denota una mala estructura\n%s", $rows, $info), 1003);
+                    }
 
                     $batch = $this->parseEndBatch($info);
 
-                    if ($this->currentBatch != $batch->batchCode())
+                    if ($this->currentBatch != $batch->batchCode()) {
                         throw new Exception(sprintf("El archivo en la línea %d tiene un registro de fin de lote que no corresponde al lote abierto, lo cual denota una mala estructura\n%s", $rows, $info), 1003);
+                    }
 
                     $this->hasProcessedBatch = false;
                     $this->currentBatch = null;
                     break;
 
                 case $this->controlCode():
-                    if (!$this->hasProcessedHeader)
+                    if (!$this->hasProcessedHeader) {
                         throw new Exception(sprintf("El archivo en la línea %d tiene un registro de fin de lote sin un registro previo de control, lo cual denota una mala estructura\n%s", $rows, $info), 1003);
+                    }
 
                     $control = $this->parseControl($info);
                     $result->addControl($control);

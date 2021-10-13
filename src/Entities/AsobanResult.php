@@ -1,12 +1,9 @@
 <?php
 
-
 namespace Dnetix\Asoban\Entities;
-
 
 class AsobanResult
 {
-
     /**
      * @var AsobanHeader
      */
@@ -40,7 +37,7 @@ class AsobanResult
     }
 
     /**
-     * Returns all the records parsed
+     * Returns all the records parsed.
      * @return AsobanRecord[]
      */
     public function getRecords()
@@ -65,12 +62,11 @@ class AsobanResult
     }
 
     /**
-     * Returns the number of records for this result
+     * Returns the number of records for this result.
      * @return int
      */
     public function recordCount()
     {
-        return sizeof($this->getRecords());
+        return count($this->getRecords());
     }
-
 }

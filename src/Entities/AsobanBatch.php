@@ -1,12 +1,9 @@
 <?php
 
-
 namespace Dnetix\Asoban\Entities;
-
 
 class AsobanBatch
 {
-
     private $data;
 
     public function __construct($data)
@@ -28,5 +25,4 @@ class AsobanBatch
     {
         return $this->get('serviceCode');
     }
-
 }
