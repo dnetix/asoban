@@ -11,6 +11,10 @@ use DateTime;
  */
 class AsobanHeader extends BaseEntity
 {
+    const AC_SAVINGS = 1;
+    const AC_CHECKING = 2;
+    const AC_CARD = 3;
+
     public function nit(): ?string
     {
         return $this->get('nit');

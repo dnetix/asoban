@@ -4,6 +4,92 @@ namespace Dnetix\Asoban\Entities;
 
 class AsobanRecord extends BaseEntity
 {
+    /**
+     * PAGO A TRAVÉS DE BANCOS
+     */
+    const SOURCE_BANK = '01';
+    /**
+     * PAGO A TRAVÉS DE CORPORACIÓN DE AHORRO Y VIVIENDA
+     */
+    const SOURCE_SAVINGS = '02';
+    /**
+     * PAGO A TRAVÉS DE ACH COLOMBIA
+     */
+    const SOURCE_ACH = '03';
+    /**
+     * PAGO A TRAVÉS DE ASCREDIBANCO
+     */
+    const SOURCE_CREDIBANCO = '04';
+    /**
+     * PAGO A TRAVÉS DE ATH
+     */
+    const SOURCE_ATH = '05';
+    /**
+     * PAGO A TRAVES DE CENIT
+     */
+    const SOURCE_CENIT = '06';
+    /**
+     * PAGO A TRAVÉS DE RED MULTICOLOR
+     */
+    const SOURCE_RBM = '07';
+    /**
+     * PAGO A TRAVÉS DE SERVIBANCA
+     */
+    const SOURCE_SERVIBANCA = '08';
+
+    /**
+     * POR VENTANILLA EN EFECTIVO
+     */
+    const PM_CASH = '1';
+    /**
+     * POR VENTANILLA EN CHEQUE
+     */
+    const PM_CHECK = '2';
+    /**
+     * POR BUZON DE AUTOSERVICIO
+     */
+    const PM_AUTOSERVICE = '3';
+    /**
+     * DÉBITO EN CUENTA POR SISTEMA DE AUDIORESPUESTA
+     */
+    const PM_IVR = '11';
+    /**
+     * DEBITO EN CUENTA POR CAJERO ELECTRÓNICO
+     */
+    const PM_ATM = '12';
+    /**
+     * DEBITO EN CUENTA POR DATÁFONO
+     */
+    const PM_DATAPHONE = '13';
+    /**
+     * DÉBITO EN CUENTA POR DOMICILIACIÓN
+     */
+    const PM_PPD = '14';
+    /**
+     * DÉBITO EN CUENTA POR INTERNET
+     */
+    const PM_INTERNET_DEBIT = '15';
+    /**
+     * TARJETA CRÉDITO POR SISTEMA DE AUDIORESPUESTA
+     */
+    const PM_CARD_IVR = '21';
+    /**
+     * TARJETA CRÉDITO POR CAJERO ELECTRÓNICO
+     */
+    const PM_CARD_ATM = '22';
+    /**
+     * TARJETA CRÉDITO POR DATÁFONO
+     */
+    const PM_CARD_DATAPHONE = '23';
+    /**
+     * TARJETA CRÉDITO POR DOMICILIACIÓN
+     */
+    const PM_CARD_TOKEN = '24';
+    /**
+     * TARJETA CRÉDITO POR INTERNET
+     */
+    const PM_CARD_INTERNET = '25';
+
     public function reference(): ?string
     {
         return $this->get('reference');
