@@ -41,6 +41,19 @@ class BaseTestCase extends TestCase
                 ['', 3, ' '],
                 ['', 65, ' '],
             ],
+            [
+                ['08', 2],
+                [1, 9],
+                [1000200, 18],
+                [1, 4],
+                ['', 129, ' '],
+            ],
+            [
+                ['09', 2],
+                [1, 9],
+                [1000200, 18],
+                ['', 133, ' '],
+            ],
         ];
 
         $file = [];
@@ -48,7 +61,7 @@ class BaseTestCase extends TestCase
         foreach ($rows as $row) {
             $x = '';
             foreach ($row as $item) {
-                $x .= str_pad($item[0], $item[1], isset($item[2]) ? $item[2] : 0, STR_PAD_LEFT);
+                $x .= str_pad($item[0], $item[1], $item[2] ?? 0, STR_PAD_LEFT);
             }
             $file[] = $x;
         }
