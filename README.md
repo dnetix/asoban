@@ -1,5 +1,7 @@
 # Asobancaria Parser
 
+[![codecov](https://codecov.io/gh/dnetix/asoban/branch/master/graph/badge.svg?token=738P5X6J4H)](https://codecov.io/gh/dnetix/asoban)
+
 Reads asobancaria plain text files and parse them into AsobanResults.
 
 ## Examples
