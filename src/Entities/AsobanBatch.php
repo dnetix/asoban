@@ -2,26 +2,14 @@
 
 namespace Dnetix\Asoban\Entities;
 
-class AsobanBatch
+class AsobanBatch extends BaseEntity
 {
-    private $data;
-
-    public function __construct($data)
-    {
-        $this->data = $data;
-    }
-
-    private function get($key)
-    {
-        return isset($this->data[$key]) ? $this->data[$key] : null;
-    }
-
-    public function batchCode()
+    public function batchCode(): ?string
     {
         return $this->get('batchCode');
     }
 
-    public function serviceCode()
+    public function serviceCode(): ?string
     {
         return $this->get('serviceCode');
     }

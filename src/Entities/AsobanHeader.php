@@ -2,65 +2,45 @@
 
 namespace Dnetix\Asoban\Entities;
 
+use Cassandra\Date;
 use DateTime;
 
 /**
  * Class AsobanHeader
  * Contains the plain text report header's information.
  */
-class AsobanHeader
+class AsobanHeader extends BaseEntity
 {
-    protected $data;
-
-    public function __construct($data)
-    {
-        $this->data = $data;
-    }
-
-    private function get($key)
-    {
-        return $this->data[$key] ?? null;
-    }
-
-    /**
-     * @return string
-     */
-    public function nit()
+    public function nit(): ?string
     {
         return $this->get('nit');
     }
 
     /**
      * Returns a Y-m-d.
-     * @return string
      */
-    public function date()
+    public function date(): ?string
     {
         return $this->get('date');
     }
 
     /**
      * Codigo Entidad Recaudadora.
-     * @return string
      */
-    public function bankCode()
+    public function bankCode(): ?string
     {
         return $this->get('bankCode');
     }
 
-    /**
-     * @return string
-     */
-    public function accountNumber()
+    public function accountNumber(): ?string
     {
         return $this->get('accountNumber');
     }
 
     /**
      * Returns a Y-m-d with the date when the file was created.
-     * @return string
      */
-    public function fileDate()
+    public function fileDate(): ?string
     {
         return $this->get('fileDate');
     }
@@ -68,9 +48,8 @@ class AsobanHeader
     /**
      * Returns the time with a format HH:MM representing the time when
      * the file was created.
-     * @return string
      */
-    public function fileTime()
+    public function fileTime(): ?string
     {
         return substr_replace($this->get('fileTime'), ':', 2, 0);
     }
@@ -78,12 +57,12 @@ class AsobanHeader
     /**
      * @return DateTime
      */
-    public function fileDateTime()
+    public function fileDateTime(): DateTime
     {
         return new DateTime($this->fileDate() . ' ' . $this->fileTime());
     }
 
-    public function fileModifier()
+    public function fileModifier(): ?string
     {
         return $this->get('fileModifier');
     }
@@ -93,9 +72,8 @@ class AsobanHeader
      *  1: Savings Account
      *  2: Checking Account
      *  3: Credit Card.
-     * @return int
      */
-    public function accountType()
+    public function accountType(): ?string
     {
         return $this->get('accountType');
     }

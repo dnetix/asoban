@@ -2,66 +2,54 @@
 
 namespace Dnetix\Asoban\Entities;
 
-class AsobanRecord
+class AsobanRecord extends BaseEntity
 {
-    protected $data;
-
-    public function __construct($data)
-    {
-        $this->data = $data;
-    }
-
-    private function get($key)
-    {
-        return isset($this->data[$key]) ? $this->data[$key] : null;
-    }
-
-    public function reference()
+    public function reference(): ?string
     {
         return $this->get('reference');
     }
 
-    public function amount()
+    public function amount(): ?string
     {
         return $this->get('amount');
     }
 
-    public function origin()
+    public function origin(): ?string
     {
         return $this->get('origin');
     }
 
-    public function channel()
+    public function channel(): ?string
     {
         return $this->get('channel');
     }
 
-    public function operationId()
+    public function operationId(): ?string
     {
         return $this->get('operationId');
     }
 
-    public function authCode()
+    public function authCode(): ?string
     {
         return $this->get('authCode');
     }
 
-    public function thirdEntity()
+    public function thirdEntity(): ?string
     {
         return $this->get('thirdEntity');
     }
 
-    public function branch()
+    public function branch(): ?string
     {
         return $this->get('branch');
     }
 
-    public function sequence()
+    public function sequence(): ?string
     {
         return $this->get('sequence');
     }
 
-    public function refundReason()
+    public function refundReason(): ?string
     {
         return $this->get('refundReason');
     }
