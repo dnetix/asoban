@@ -119,4 +119,59 @@ class Format2001 extends GenericParser
             'amount' => floatval(ltrim(substr($row, 11, 18), '0')) / 100,
         ]);
     }
+
+    public function headerLine(AsobanHeader $header): string
+    {
+        return self::arrayDescriptorAsString([
+            ['01', 2],
+            [$header->nit(), 10],
+            [date('Ymd', strtotime($header->date())), 8],
+            [$header->bankCode(), 3],
+            [$header->accountNumber(), 17, ' '],
+            [$header->fileDate() ? date('Ymd', strtotime($header->fileDate())) : date('Ymd'), 8],
+            [$header->fileTime() ?: date('Hi'), 4],
+            [$header->fileModifier() ?: 'Z', 1],
+            [$header->accountType(), 2],
+            ['', 106, ' '],
+        ]);
+    }
+
+    public function batchLine(AsobanBatch $batch): string
+    {
+        return self::arrayDescriptorAsString([
+            ['05', 2],
+            [$batch->serviceCode(), 13],
+            [$batch->batchCode(), 4],
+            ['', 142, ' '],
+        ]);
+    }
+
+    public function recordLine(AsobanRecord $record): string
+    {
+        return self::arrayDescriptorAsString([
+            ['06', 2],
+            [$record->reference(), 48],
+            [(int)($record->amount() * 100), 14],
+            [$record->origin(), 2],
+            [$record->channel(), 2],
+            [$record->operationId(), 6],
+            [$record->authCode(), 6],
+            [$record->thirdEntity(), 3],
+            [$record->branch(), 4],
+            [$record->sequence(), 7],
+            [$record->refundReason(), 3, ' '],
+            ['', 65, ' '],
+        ]);
+    }
+
+    public function endBatchLine(AsobanEndBatch $control): string
+    {
+        return self::arrayDescriptorAsString([
+            ['08', 2],
+            [$control->records(), 9],
+            [(int)($control->amount() * 100), 18],
+            [$control->batchCode(), 4],
+            ['', 128, ' '],
+        ]);
+    }
 }
