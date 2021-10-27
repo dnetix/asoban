@@ -174,4 +174,14 @@ class Format2001 extends GenericParser
             ['', 128, ' '],
         ]);
     }
+
+    public function controlLine(AsobanControl $control): string
+    {
+        return self::arrayDescriptorAsString([
+            ['09', 2],
+            [$control->records(), 9],
+            [(int)($control->amount() * 100), 18],
+            ['', 132, ' '],
+        ]);
+    }
 }
