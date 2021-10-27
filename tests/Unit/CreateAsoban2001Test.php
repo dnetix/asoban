@@ -74,5 +74,7 @@ class CreateAsoban2001Test extends BaseTestCase
         $this->assertEquals(3, $result->batchs()[1]->records()[1]->sequence());
         $this->assertEquals(2, $result->batchs()[0]->endBatch()->records());
         $this->assertEquals(301.12, $result->batchs()[0]->endBatch()->amount());
+        $this->assertEquals(914481.12, $result->control()->amount());
+        $this->assertEquals(4, $result->control()->records());
     }
 }
